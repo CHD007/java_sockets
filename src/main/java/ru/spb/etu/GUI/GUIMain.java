@@ -1,7 +1,5 @@
 package ru.spb.etu.GUI;
 
-import ru.spb.etu.GUI.GeometricAction;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -41,9 +39,12 @@ public class GUIMain {
                                         case REACTANGLE_PERIMETER:
                                             out.writeInt(((Number)frame.getTextFieldFirstValue().getValue()).intValue());
                                             out.writeInt(((Number)frame.getTextFieldSecondValue().getValue()).intValue());
+                                            frame.getTextFieldFirstValue().setValue(null);
+                                            frame.getTextFieldSecondValue().setValue(null);
                                             break;
                                         case ORB_VALUE:
                                             out.writeInt(((Number)frame.getTextFieldFirstValue().getValue()).intValue());
+                                            frame.getTextFieldFirstValue().setValue(null);
                                             break;
                                     }
                                 }

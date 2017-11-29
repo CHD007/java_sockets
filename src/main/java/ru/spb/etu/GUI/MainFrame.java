@@ -92,21 +92,18 @@ public class MainFrame extends JFrame {
             case TRIANGLE_AREA:
             case REACTANGLE_PERIMETER:
             case ROMBUS_AREA:
-                try {
-                    Number firstValue = (Number) textFieldFirstValue.getValue();
-                    Number SecondValue = (Number) textFieldSecondValue.getValue();
-                    return true;
-                } catch (ClassCastException e) {
+                if (textFieldFirstValue.getValue() == null || textFieldSecondValue.getValue() == null) {
                     JOptionPane.showMessageDialog(null, "Неправильные числа");
                     return false;
+                } else {
+                    return true;
                 }
             case ORB_VALUE:
-                try {
-                    Number orbRadius = (Number) textFieldFirstValue.getValue();
-                    return true;
-                } catch (ClassCastException e) {
-                    JOptionPane.showMessageDialog(null, "Неправильное число");
+                if (textFieldFirstValue.getValue() == null) {
+                    JOptionPane.showMessageDialog(null, "Неправильные числа");
                     return false;
+                } else {
+                    return true;
                 }
         }
         return false;
