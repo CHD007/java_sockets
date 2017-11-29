@@ -74,6 +74,7 @@ public class Server {
                 }
             } catch (IOException e) {
                 LOGGER.log(Level.SEVERE, "Error", e);
+                System.exit(0);
             }
             System.out.println(SERVER_WAIT_NEW_DATA);
         } while (true);
