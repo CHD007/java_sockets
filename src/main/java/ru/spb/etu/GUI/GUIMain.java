@@ -50,6 +50,8 @@ public class GUIMain {
                                 }
                             } catch (IOException e) {
                                 LOGGER.log(Level.SEVERE, "Error while writing in stream", e);
+                                JOptionPane.showMessageDialog(null, "Ошибка соединения с сервером");
+                                System.exit(0);
                             }
                         });
                         frame.setTitle("Калькулятор");
@@ -75,6 +77,8 @@ public class GUIMain {
                 }
             } catch (IOException e) {
                 LOGGER.log(Level.SEVERE, "Error while writing in stream", e);
+                JOptionPane.showMessageDialog(null, "Ошибка соединения с сервером");
+                System.exit(0);
             }
         });
         waiterForAnswer.start();
