@@ -1,22 +1,32 @@
 package ru.spb.etu.server;
 
+import ru.spb.etu.entities.RackmountServer;
+import ru.spb.etu.entities.Supply;
+import ru.spb.etu.server.dao.ServersDao;
+import ru.spb.etu.server.dao.SuppliesDao;
+import ru.spb.etu.server.dao.UniversDao;
+
 import javax.swing.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Server {
     private final static Logger LOGGER = Logger.getLogger(Server.class.getName());
-    private final static String SERVER_WAIT = "Server is waiting for connection...";
+    private final static String SERVER_WAIT = "RackmountServer is waiting for connection...";
     private final static String CLIENT_CONNECT = "Client connected to the server";
-    private final static String SERVER_WAIT_NEW_DATA = "Server is waiting for new data...";
+    private final static String SERVER_WAIT_NEW_DATA = "RackmountServer is waiting for new data...";
     private final static String CLOSE = "Connection with the client is closed";
     private final static int PORT = 6666;
     private static ServerFrame serverFrame;
+    private static ServersDao serversDao;
+    private static SuppliesDao suppliesDao;
+    private static UniversDao universDao;
 
     public static void main(String[] ar) {
         serverFrame = new ServerFrame();
@@ -24,6 +34,14 @@ public class Server {
         serverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         serverFrame.setVisible(true);
         serverFrame.getServerAction().setText(SERVER_WAIT);
+
+        serversDao = new ServersDao();
+        suppliesDao = new SuppliesDao();
+        universDao = new UniversDao();
+
+        List<RackmountServer> servers = serversDao.getServers();
+        List<Supply> supplies = suppliesDao.getSupplies();
+
         try (ServerSocket ss = new ServerSocket(PORT);
              Socket socket = ss.accept();
              DataInputStream in = new DataInputStream(socket.getInputStream());
@@ -88,5 +106,4 @@ public class Server {
             serverFrame.getServerAction().setText(SERVER_WAIT_NEW_DATA);
         } while (true);
     }
-
 }

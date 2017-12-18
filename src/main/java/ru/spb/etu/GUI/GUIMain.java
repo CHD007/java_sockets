@@ -73,7 +73,7 @@ public class GUIMain {
             try {
                 while (true) {
                     double answer = in.readDouble();
-                    JOptionPane.showMessageDialog(null, "Server answer is " + answer);
+                    JOptionPane.showMessageDialog(null, "RackmountServer answer is " + answer);
                 }
             } catch (IOException e) {
                 LOGGER.log(Level.SEVERE, "Error while writing in stream", e);
