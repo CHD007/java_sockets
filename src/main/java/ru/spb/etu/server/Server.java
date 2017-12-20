@@ -1,11 +1,19 @@
 package ru.spb.etu.server;
 
+import ru.spb.etu.entities.MountServer;
+import ru.spb.etu.entities.Supply;
+import ru.spb.etu.entities.Univer;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.swing.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,6 +32,9 @@ public class Server {
         serverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         serverFrame.setVisible(true);
         serverFrame.getServerAction().setText(SERVER_WAIT);
+
+        List<MountServer> enities = getServers();
+
         try (ServerSocket ss = new ServerSocket(PORT);
              Socket socket = ss.accept();
              DataInputStream in = new DataInputStream(socket.getInputStream());
@@ -87,6 +98,38 @@ public class Server {
             }
             serverFrame.getServerAction().setText(SERVER_WAIT_NEW_DATA);
         } while (true);
+    }
+
+//    private static <T> List<T> getEnities(Class<T> clazz) {
+//        EntityManager entityManager = EMF.getEMF().createEntityManager();
+//        TypedQuery<T> query = entityManager.createQuery("from " + clazz.getSimpleName(), clazz);
+//        List<T> mountServers = new ArrayList<T>(query.getResultList());
+//        entityManager.close();
+//        return mountServers;
+//    }
+
+    private static List<MountServer> getServers() {
+        EntityManager entityManager = EMF.getEMF().createEntityManager();
+        TypedQuery<MountServer> query = entityManager.createQuery("from mount_servers ", MountServer.class);
+        List<MountServer> mountServers = new ArrayList<MountServer>(query.getResultList());
+        entityManager.close();
+        return mountServers;
+    }
+
+    private static List<Univer> getUnivers() {
+        EntityManager entityManager = EMF.getEMF().createEntityManager();
+        TypedQuery<Univer> query = entityManager.createQuery("from univers ", Univer.class);
+        List<Univer> mountServers = new ArrayList<Univer>(query.getResultList());
+        entityManager.close();
+        return mountServers;
+    }
+
+    private static List<Supply> getSupplies() {
+        EntityManager entityManager = EMF.getEMF().createEntityManager();
+        TypedQuery<Supply> query = entityManager.createQuery("from supplies ", Supply.class);
+        List<Supply> mountServers = new ArrayList<Supply>(query.getResultList());
+        entityManager.close();
+        return mountServers;
     }
 
 }
